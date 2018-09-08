@@ -1,4 +1,6 @@
 from flask import Flask
+from flask import render_template
+
 app = Flask("CodeFlix")
 
 if __name__=='__main__':    
@@ -8,6 +10,8 @@ if __name__=='__main__':
 def home():
     return  'ola mundo!'
 
-
 def cadastro():
     return 'cadastro usuarios'
+
+def cadastrarUsuario():
+    return render_template('novo_cadastro.html')
