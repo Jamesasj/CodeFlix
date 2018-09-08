@@ -6,4 +6,5 @@ def home():
     return  'ola mundo!'
 
 
-def 
+def cadastro():
+    return 'cadastro usuarios'
