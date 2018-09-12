@@ -1,24 +1,44 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>CodeFlix</title>
-    
-    <link rel=stylesheet type=text/css href="{{ url_for('css', filename='estilo.css') }}">
-    <script src="{{url_for('js', filename='jquery-3.1.1.min.js')}}"></script>
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>CodeFlix</title>
+        <script src="{{url_for('static', filename='js/bootstrap.js')}}"></script>
+        <link rel="stylesheet" href="{{url_for('static', filename='css/bootstrap.css')}}" crossorigin="anonymous">
+    </head>
 
-</head>
-<body>
-    <div class="sugestoes">
+    <body>
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <span class="navbar-brand mb-0 h1">Navbar</span>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Perfil</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
 
-    </div>
-    <div class="classificados">
+        <div class="lista sugestoes">
+            <div class="filme">
+                <img src="https://m.media-amazon.com/images/M/MV5BNzVlY2MwMjktM2E4OS00Y2Y3LWE3ZjctYzhkZGM3YzA1ZWM2XkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_SY1000_CR0,0,643,1000_AL_.jpg" alt="" height="170" width="100">
 
-    </div>
-    <div class="lista">
-        
-    </div>
+                <img src="https://m.media-amazon.com/images/M/MV5BNzVlY2MwMjktM2E4OS00Y2Y3LWE3ZjctYzhkZGM3YzA1ZWM2XkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_SY1000_CR0,0,643,1000_AL_.jpg" alt="" height="170" width="100">
+            </div>
+        </div>
+        <div class="lista classificados">
+            lista de classificados
+        </div>
+        <div class="lista todos">
+            lista de todos os amigos
+        </div>
 
-</body>
+    </body>
 </html>

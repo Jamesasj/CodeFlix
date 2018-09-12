@@ -5,14 +5,14 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>CodeFlix</title>
         <script src="{{url_for('static', filename='js/bootstrap.js')}}"></script>
-      
+        <link rel="stylesheet" href="{{url_for('static', filename='css/bootstrap.css')}}" crossorigin="anonymous">
     </head>
     
     <body>
         <h1>CodeFlix</h1>
         <input type="text" placeholder="USUARIO">
         <input type="password" name="" id="" placeholder="SENHA">
-        <button type="submit">Entrar</button>
-        <button type="submit">Cadastrar</button>
+        <button type="submit" class="btn btn-primary">Entrar</button>
+        <button type="submit" class="btn btn-info">Cadastrar</button>
     </body>
 </html>

@@ -12,6 +12,8 @@ def cadastro():
 
 def cadastrarUsuario():
     return render_template('novo_cadastro.html')
-
+@app.route('/listar')
+def listar():
+    return render_template('lista.html')
 if __name__=='__main__':    
     app.run('0.0.0.0',debug=True, port=8080)
