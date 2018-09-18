@@ -5,4 +5,5 @@ Python
 Flask
 Numpy
 Sklearn
+scipy
 
