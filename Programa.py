@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, redirect, url_for
 from flask import render_template
 
 app = Flask("CodeFlix")
@@ -9,11 +9,19 @@ def home():
 
 def cadastro():
     return 'cadastro usuarios'
+
 @app.route('/novo')
 def cadastrarUsuario():
     return render_template('novo_cadastro.html')
+
 @app.route('/listar')
 def listar():
     return render_template('lista.html')
+
+@app.route('/cadastrar')
+def cadastrar():
+    return redirect(url_for("home"))
+
+
 if __name__=='__main__':    
     app.run('0.0.0.0',debug=True, port=8080)

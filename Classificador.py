@@ -30,32 +30,32 @@ def userDict(user="", movie=""):#tag,count=5):
 def sim_distance(person1,person2):
     '''
     *** Sklearn Metrics
-    ‘cityblock’
-    ‘cosine’
-    ‘euclidean’
-    ‘l1’
-    ‘l2’
-    ‘manhattan’
+    'cityblock'
+    'cosine'
+    'euclidean'
+    'l1'
+    'l2'
+    'manhattan'
     
     *** Scipy Metrics
-    ‘braycurtis’
-    ‘canberra’
-    ‘chebyshev’
-    ‘correlation’
-    ‘dice’
-    ‘hamming’
-    ‘jaccard’
-    ‘kulsinski’
-    ‘mahalanobis’
-    ‘matching’
-    ‘minkowski’
-    ‘rogerstanimoto’
-    ‘russellrao’
-    ‘seuclidean’
-    ‘sokalmichener’
-    ‘sokalsneath’
-    ‘sqeuclidean’
-    ‘yule’
+    'braycurtis'
+    'canberra'
+    'chebyshev'
+    'correlation'
+    'dice'
+    'hamming'
+    'jaccard'
+    'kulsinski'
+    'mahalanobis'
+    'matching'
+    'minkowski'
+    'rogerstanimoto'
+    'russellrao'
+    'seuclidean'
+    'sokalmichener'
+    'sokalsneath'
+    'sqeuclidean'
+    'yule'
 
 
     http://scikit-learn.org/stable/modules/generated/sklearn.metrics.pairwise.pairwise_distances.html
@@ -88,14 +88,14 @@ def recommend(dataset, users, movies, person):
     recommendations = []
     mov_ = [m_ for m_ in movies if m_ not in userDict(user=person)]
     if len(mov_) > 0:
-        #Recomendações de usuários com perfil similar.
+        #Recomendacoes de usuarios com perfil similar.
         for match, sim in best_match(users,  person):
             for midx, m in enumerate(mov_):
                 arr = dataset[[uid for uid, u in enumerate(users) if u == match][0]]
                 recommendations.append((m, arr[midx]*sim, person, match))
         return sorted(recommendations, key=lambda x:x[1])
     else:
-        #O usuário já viu todos os filmes da plataforma.
+        #O usuario ja viu todos os filmes da plataforma.
         for match, sim in best_match(users,  person):
             for midx, m in enumerate(movies):
                 arr = dataset[[uid for uid, u in enumerate(users) if u == match][0]]

@@ -11,17 +11,24 @@
     
     <body>
         <h1>CodeFlix</h1>
-        <input type="text" placeholder="USUARIO">
-        <input type="password" name="" id="" placeholder="SENHA">
-        <button type="submit" class="btn btn-primary">Entrar</button>
-        <button type="submit" class="btn btn-info cadastrar">Cadastrar</button>
-    
-    
+
+            <input type="text" id="usuario" placeholder="USUARIO">
+            <input type="password"  id="senha" placeholder="SENHA">
+            <button type="submit" class="btn btn-primary logar">Entrar</button>
+            <button type="submit" class="btn btn-info cadastrar">Cadastrar</button>
+
     </body>
 
     <script>
         $(".cadastrar").click(function () {
-            location.href="/novo"
+            location.href="/novo";
+        });
+
+        $(".logar").click(function(){
+            var usuario = $("#usuario").val();
+            var senha = $("#senha").val();
+            console.log("tentei fazer o login "+senha);
+            //location.href="listar";
         });
     </script>
 </html>
