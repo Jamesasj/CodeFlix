@@ -6,6 +6,7 @@
         <title>CodeFlix</title>
         <script src="{{url_for('static', filename='js/bootstrap.js')}}"></script>
         <link rel="stylesheet" href="{{url_for('static', filename='css/bootstrap.css')}}" crossorigin="anonymous">
+        <script src="{{url_for('static', filename='js/jquery-3.3.1.min.js')}}"></script>
     </head>
     
     <body>
@@ -13,6 +14,14 @@
         <input type="text" placeholder="USUARIO">
         <input type="password" name="" id="" placeholder="SENHA">
         <button type="submit" class="btn btn-primary">Entrar</button>
-        <button type="submit" class="btn btn-info">Cadastrar</button>
+        <button type="submit" class="btn btn-info cadastrar">Cadastrar</button>
+    
+    
     </body>
+
+    <script>
+        $(".cadastrar").click(function () {
+            location.href="/novo"
+        });
+    </script>
 </html>

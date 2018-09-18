@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>CodeFlix</title>
+        <script src="{{url_for('static', filename='js/bootstrap.js')}}"></script>
+        <link rel="stylesheet" href="{{url_for('static', filename='css/bootstrap.css')}}" crossorigin="anonymous">
+        <script src="{{url_for('static', filename='js/jquery-3.3.1.min.js')}}"></script>
+    </head>
+    <body>
+        <input type="text"  placeholder="Nome">
+        <input type="text"  placeholder="Sobrenome">
+        <input type="text"  placeholder="Usuario">
+        <input type="password"  placeholder="Senha">
+        <input type="password"  placeholder="Repita a senha">
+        <button type="submit" class="cadastrar">Cadastrar</button>
+        
+        <button type="submit" class="cancelar">Cancelar</button>
+    </body>
+    <script>
+        $('.cadastrar').click(function (){
+            console.log("cadastrar");
+        });
+
+        $('.cancelar').click(function(){
+            location.href = "/home";
+        });
+    </script>
+</html>

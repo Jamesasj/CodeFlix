@@ -9,7 +9,7 @@ def home():
 
 def cadastro():
     return 'cadastro usuarios'
-
+@app.route('/novo')
 def cadastrarUsuario():
     return render_template('novo_cadastro.html')
 @app.route('/listar')

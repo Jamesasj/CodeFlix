@@ -27,7 +27,6 @@ def userDict(user="", movie=""):#tag,count=5):
             return dict_
     return critics
 
-
 def sim_distance(person1,person2):
     '''
     *** Sklearn Metrics
@@ -116,7 +115,7 @@ def movies_recommend(recommendations, movies):
     #return sorted([(m,r) for m, r in rec], key=lambda x:x[1])
     return sorted([(m,100*r/sum([r_ for m_, r_ in rec])) for m, r in rec], key=lambda x:x[1])
 
-def main():
+def main(): 
     '''
     Platform Users
     - Gene Seymour
@@ -156,42 +155,11 @@ def main():
 
     dupree = userDict(movie="You, Me and Dupree")
     snakes = userDict(movie="Snakes on a Plane")
-
-    #fig, ax = plt.subplots()
-    #for u in users:
-    #    if u in dupree and u in snakes:
-    #        ax.plot(dupree[u], snakes[u])
-    #        ax.annotate(u, (dupree[u], snakes[u]))
-    #plt.xlabel("Avaliação [You, Me and Dupree]")
-    #plt.ylabel("Avaliação [Snakes on a Plane]")
-    #plt.xlim((0,5))
-    #plt.ylim((0,5))
-    #plt.show()
-
-    #plt.close()
-
     la_salle = userDict(user="Mick LaSalle")
     seymour = userDict(user="Gene Seymour")
-
-    #fig, ax = plt.subplots()
-    #for m in movies:
-    #    if m in la_salle and m in seymour:
-    #        ax.plot(la_salle[m], seymour[m])
-    #        ax.annotate(m, (la_salle[m], seymour[m]))
-    #plt.plot([(0,0), (1,1), (2,2), (3,3), (4,4), (5,5)], 'r--')
-    #plt.xlabel("Avaliações [Mick LaSalle]")
-    #plt.ylabel("Avaliações [Gene Seymour]")
-    #plt.xlim((0,5))
-    #plt.ylim((0,5))
-    #plt.show()
-
-    #plt.close()
-
-
+    
     person_recommend = recommend(dataset, users, movies, "Toby")
-
     perc_rec = movies_recommend(person_recommend, movies)
-
     moviearr = []
     for enum, m in enumerate(movies):
         value = [rec_ for m_, rec_ in perc_rec if m_ == m]
@@ -199,13 +167,6 @@ def main():
             moviearr.append((m, value[0]))
         else:
             moviearr.append((m, 0.0))
-
-    #plt.bar(np.arange(0, len(movies)), [rec_ for m_, rec_ in moviearr], color="b", tick_label=[m_ for m_, rec_ in moviearr])
-    #plt.xticks(rotation=90)
-    #plt.ylim((0, 100))
-    #plt.ylabel('Recomendação (%)')
-    #plt.show()
-    #plt.close()
 
 if __name__ == "__main__":
     main()
