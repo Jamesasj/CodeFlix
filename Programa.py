@@ -49,6 +49,12 @@ def obterFilmes():
         data = json.load(f)
     return jsonify(data)
 
+@app.route('/obterNotas', methods=['POST'])
+def obterNotas():
+    with open('dados/' + request.form['folder'] + '/notas.json') as f:
+        data = json.load(f)
+    return jsonify(data)
+
 @app.route('/avaliar/<pasta>/<filme>/<nota>')
 def avaliar(pasta, filme, nota):
     nm_arquivo =  "dados/modelo/data.json"
@@ -58,25 +64,37 @@ def avaliar(pasta, filme, nota):
     if os.path.exists(nm_arquivo):
         with open( nm_arquivo ,'r+') as arquivo:
             listaPastas = json.load(arquivo)  
+
     novoItem = {pasta : {filme : nota}}
     listaPastas.append(novoItem)
     
     with open( nm_arquivo ,'w+') as arquivo:
         json.dump(listaPastas , arquivo)
 
-    with open("dados/" + pasta +"/data.json",'r' ) as arquivo:
+    nm_arquivo = "dados/" + pasta +"/data.json"
+    with open( nm_arquivo ,'r' ) as arquivo:
         listaFilmes = json.load(arquivo)
     
     for i, item in enumerate(listaFilmes["filmes"]):
         if(item['id'] == filme):
-            listaFilmes['filmes'].pop(i)
+            filme = listaFilmes['filmes'].pop(i)
             break
 
-    with open("dados/" + pasta +"/data.json",'w' ) as arquivo:
+    with open( nm_arquivo ,'w' ) as arquivo:
         json.dump(listaFilmes , arquivo)
-        
-    return redirect(url_for("listar",folder = pasta))
 
+    nm_arquivo = "dados/" + pasta +"/notas.json"
+    listaNotas = list()
+    if os.path.exists(nm_arquivo):
+        with open( nm_arquivo ,'r+' ) as arquivo:
+            listaNotas = json.load(arquivo)
+
+    listaNotas.append(filme)
+
+    with open( nm_arquivo ,'w' ) as arquivo:
+        json.dump(listaNotas , arquivo)
+
+    return redirect(url_for("listar",folder = pasta))
 
 if __name__=='__main__':    
     app.run('0.0.0.0',debug=True, port=8080)

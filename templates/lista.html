@@ -66,9 +66,12 @@
 
     <script>
         $(document).ready(function(){
-            $.post('/obterFilmes',
-                    {folder : $('#folderName').val()},
-                    function(data){
+            listarNaoClassificados();
+            listarClassificados();
+        });
+
+        function listarNaoClassificados() {
+            $.post('/obterFilmes', {folder : $('#folderName').val()}, function(data){
                         $('div.lista.todos').append(
                             $('<div></div>').addClass('filmes')
                         );
@@ -90,10 +93,28 @@
                                 .addClass('filme')
                             );            
                         });
-
                     }
             );
-        });
+        }
+        
+        function listarClassificados() {
+            $.post('/obterNotas', {folder : $('#folderName').val()}, function(data){
+                        $('div.lista.classificados').append(
+                            $('<div></div>').addClass('filmes')
+                        );
+
+                        $.each(data, function(i, item){
+                            var link = "/avaliar/"+$('#folderName').val() + "/" + item.id+"/"
+                            $('div.lista.classificados>div.filmes').append(
+                                $('<div></div>').append(
+                                    $('<img></img>').attr('src', "/static/img/"+item.id+".jpg")
+                                    .addClass('filmeIMG')
+                                ).addClass('filme')
+                            );            
+                        });
+                    }
+            );
+        }
     </script>
 
     <style>
