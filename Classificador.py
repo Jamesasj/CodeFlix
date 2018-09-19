@@ -1,16 +1,23 @@
 import time
 import numpy as np
+import json
 from sklearn.metrics.pairwise import pairwise_distances
 
+def obterBase():
+    with open("dados/modelo/data.json", 'r') as arquivo:
+        treino = json.load(arquivo)
+    
+    dicio = dict()
+    for item in treino:   
+        if item['usuario'] in dicio:
+            dicio[item['usuario']].update({item['filme'] : item['nota']})
+        else:
+            dicio[item['usuario']]={item['filme'] : item['nota']}
+
+    return dicio
+
 def userDict(user="", movie=""):#tag,count=5):
-    critics={'Lisa Rose': {'Lady in the Water': 2.5, 'Snakes on a Plane': 3.5, 'Just My Luck': 3.0, 'Superman Returns': 3.5, 'You, Me and Dupree': 2.5, 'The Night Listener': 3.0},
-    'Gene Seymour': {'Lady in the Water': 3.0, 'Snakes on a Plane': 3.5, 'Just My Luck': 1.5, 'Superman Returns': 5.0, 'The Night Listener': 3.0, 'You, Me and Dupree': 3.5},
-    'Michael Phillips': {'Lady in the Water': 2.5, 'Snakes on a Plane': 3.0, 'Superman Returns': 3.5, 'The Night Listener': 4.0},
-    'Claudia Puig': {'Snakes on a Plane': 3.5, 'Just My Luck': 3.0, 'The Night Listener': 4.5, 'Superman Returns': 4.0, 'You, Me and Dupree': 2.5},
-    'Mick LaSalle': {'Lady in the Water': 3.0, 'Snakes on a Plane': 4.0, 'Just My Luck': 2.0, 'Superman Returns': 3.0, 'The Night Listener': 3.0, 'You, Me and Dupree': 2.0}, 
-    'Jack Matthews': {'Lady in the Water': 3.0, 'Snakes on a Plane': 4.0, 'The Night Listener': 3.0, 'Superman Returns': 5.0, 'You, Me and Dupree': 3.5},
-    'Toby': {'Snakes on a Plane':4.5,'You, Me and Dupree':1.0,'Superman Returns':4.0}
-    }
+    critics= obterBase()
     if user != "":
         if user in critics:
             return critics[user]
@@ -26,38 +33,6 @@ def userDict(user="", movie=""):#tag,count=5):
     return critics
 
 def sim_distance(person1,person2):
-    '''
-    *** Sklearn Metrics
-    'cityblock'
-    'cosine'
-    'euclidean'
-    'l1'
-    'l2'
-    'manhattan'
-    
-    *** Scipy Metrics
-    'braycurtis'
-    'canberra'
-    'chebyshev'
-    'correlation'
-    'dice'
-    'hamming'
-    'jaccard'
-    'kulsinski'
-    'mahalanobis'
-    'matching'
-    'minkowski'
-    'rogerstanimoto'
-    'russellrao'
-    'seuclidean'
-    'sokalmichener'
-    'sokalsneath'
-    'sqeuclidean'
-    'yule'
-
-
-    http://scikit-learn.org/stable/modules/generated/sklearn.metrics.pairwise.pairwise_distances.html
-    '''
     p1, p2, movies= get_vectors(person1, person2)
     p1 = np.array(p1).reshape(1, -1)
     p2 = np.array(p2).reshape(1, -1)
@@ -114,33 +89,21 @@ def movies_recommend(recommendations, movies):
     return sorted([(m,100*r/sum([r_ for m_, r_ in rec])) for m, r in rec], key=lambda x:x[1])
 
 def main(): 
-    '''
-    Platform Users
-    - Gene Seymour
-    - Michael Phillips
-    - Lisa Rose
-    - Mick LaSalle
-    - Claudia Puig
-    - Toby
-    - Jack Matthews
-    '''
     userdata = userDict()
     movies = []
     users = []
     for user in userdata.keys():
         users.append(user)
-
         for f in userdata[user]:
             movies.append(f)
 
     movies = np.unique(movies)
-
     dataset = []
     for idx, u in enumerate(users):
         aux = []
         for f in movies:
             if f in userdata[u]:
-                aux.append(userdata[u][f])
+                aux.append(int(userdata[u][f]))
             else:
                 aux.append(0)
         dataset.append(aux)
@@ -151,7 +114,7 @@ def main():
     person1 = users[5]
     print(best_match(users, person1))
     
-    person_recommend = recommend(dataset, users, movies, "Toby")
+    person_recommend = recommend(dataset, users, movies, "123mateus")
     perc_rec = movies_recommend(person_recommend, movies)
     moviearr = []
     for enum, m in enumerate(movies):

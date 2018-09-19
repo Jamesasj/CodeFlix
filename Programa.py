@@ -58,14 +58,13 @@ def obterNotas():
 @app.route('/avaliar/<pasta>/<filme>/<nota>')
 def avaliar(pasta, filme, nota):
     nm_arquivo =  "dados/modelo/data.json"
-    classifi = {filme : nota}
     listaPastas = list()
 
     if os.path.exists(nm_arquivo):
         with open( nm_arquivo ,'r+') as arquivo:
             listaPastas = json.load(arquivo)  
 
-    novoItem = {pasta : {filme : nota}}
+    novoItem = {"usuario" : pasta, "filme": filme, "nota" : nota}
     listaPastas.append(novoItem)
     
     with open( nm_arquivo ,'w+') as arquivo:
