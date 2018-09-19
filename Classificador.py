@@ -1,6 +1,4 @@
 import time
-#import matplotlib.pyplot as plt
-#import recommendations as rcmmd
 import numpy as np
 from sklearn.metrics.pairwise import pairwise_distances
 

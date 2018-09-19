@@ -1,0 +1,10 @@
+{
+    "filmes": [
+        {"nome":"Lady in the Water", "id":"001"},
+        {"nome":"Snakes on a Plane", "id":"002"},
+        {"nome":"Just My Luck", "id":"003"},
+        {"nome":"Superman Returns", "id":"004"},
+        {"nome":"The Night Listener", "id":"005"},
+        {"nome":"You, Me and Dupree", "id":"006"}
+    ]
+}

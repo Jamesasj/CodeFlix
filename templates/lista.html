@@ -6,6 +6,9 @@
         <title>CodeFlix</title>
         <script src="{{url_for('static', filename='js/bootstrap.js')}}"></script>
         <link rel="stylesheet" href="{{url_for('static', filename='css/bootstrap.css')}}" crossorigin="anonymous">
+        <script src="{{url_for('static', filename='js/jquery-3.3.1.min.js')}}"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
     </head>
 
     <body>
@@ -27,10 +30,28 @@
         </nav>
 
         <div class="lista sugestoes">
-            <div class="filme">
-                <img src="https://m.media-amazon.com/images/M/MV5BNzVlY2MwMjktM2E4OS00Y2Y3LWE3ZjctYzhkZGM3YzA1ZWM2XkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_SY1000_CR0,0,643,1000_AL_.jpg" alt="" height="170" width="100">
-
-                <img src="https://m.media-amazon.com/images/M/MV5BNzVlY2MwMjktM2E4OS00Y2Y3LWE3ZjctYzhkZGM3YzA1ZWM2XkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_SY1000_CR0,0,643,1000_AL_.jpg" alt="" height="170" width="100">
+            <div class="filmes">
+                <div class="filme">
+                    <img src="https://m.media-amazon.com/images/M/MV5BNzVlY2MwMjktM2E4OS00Y2Y3LWE3ZjctYzhkZGM3YzA1ZWM2XkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_SY1000_CR0,0,643,1000_AL_.jpg" alt="" height="170" width="100">
+                    <div>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star"></span>
+                        <span class="fa fa-star"></span>
+                    </div>
+                </div>
+                <div class="filme">
+                    <img src="https://m.media-amazon.com/images/M/MV5BNzVlY2MwMjktM2E4OS00Y2Y3LWE3ZjctYzhkZGM3YzA1ZWM2XkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_SY1000_CR0,0,643,1000_AL_.jpg" alt="" height="170" width="100">
+                    <div>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star"></span>
+                        <span class="fa fa-star"></span>
+                    </div>
+                </div>
+                    
             </div>
         </div>
         <div class="lista classificados">
@@ -39,6 +60,53 @@
         <div class="lista todos">
             lista de todos os amigos
         </div>
-
+        
+        <input type="hidden" value="{{folder}}" id="folderName">
     </body>
+
+    <script>
+        $(document).ready(function(){
+            $.post('/obterFilmes',
+                    {folder : $('#folderName').val()},
+                    function(data){
+                        $('div.lista.todos').append(
+                            $('<div></div>').addClass('filmes')
+                        );
+                        $.each(data.filmes, function(i, item){
+                            var link = "/avaliar/"+$('#folderName').val() + "/" + item.id+"/"
+                            $('div.lista.todos>div.filmes').append(
+                                $('<div></div>').append(
+                                    $('<img></img>').attr('src', "/static/img/"+item.id+".jpg")
+                                    .addClass('filmeIMG')
+                                ).append(
+                                    $('<div></div>').append(
+                                      $('<a></a>').addClass('fa fa-star').attr('href',link + '1'),
+                                      $('<a></a>').addClass('fa fa-star').attr('href',link + '2'),
+                                      $('<a></a>').addClass('fa fa-star').attr('href',link + '3'),
+                                      $('<a></a>').addClass('fa fa-star').attr('href',link + '4'),
+                                      $('<a></a>').addClass('fa fa-star').attr('href',link + '5')
+                                    )
+                                )
+                                .addClass('filme')
+                            );            
+                        });
+
+                    }
+            );
+        });
+    </script>
+
+    <style>
+        img.filmeIMG{
+            height: 170px;
+            width: 100px;
+        }
+
+        .filmes {
+             display: -webkit-box;
+        }
+        .filme{
+
+        }
+    </style>
 </html>
