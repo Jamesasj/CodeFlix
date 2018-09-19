@@ -43,19 +43,39 @@ def logar():
     else:
         return abort(403)
 
-
 @app.route('/obterFilmes', methods=['POST'])
 def obterFilmes():
-    print(request.form['folder'])
     with open('dados/' + request.form['folder'] + '/data.json') as f:
         data = json.load(f)
-    print(data)
     return jsonify(data)
 
 @app.route('/avaliar/<pasta>/<filme>/<nota>')
 def avaliar(pasta, filme, nota):
-    print(pasta)
-    return redirect(url_for("listar",folder = pasta ));
+    nm_arquivo =  "dados/modelo/data.json"
+    classifi = {filme : nota}
+    listaPastas = list()
+
+    if os.path.exists(nm_arquivo):
+        with open( nm_arquivo ,'r+') as arquivo:
+            listaPastas = json.load(arquivo)  
+    novoItem = {pasta : {filme : nota}}
+    listaPastas.append(novoItem)
+    
+    with open( nm_arquivo ,'w+') as arquivo:
+        json.dump(listaPastas , arquivo)
+
+    with open("dados/" + pasta +"/data.json",'r' ) as arquivo:
+        listaFilmes = json.load(arquivo)
+    
+    for i, item in enumerate(listaFilmes["filmes"]):
+        if(item['id'] == filme):
+            listaFilmes['filmes'].pop(i)
+            break
+
+    with open("dados/" + pasta +"/data.json",'w' ) as arquivo:
+        json.dump(listaFilmes , arquivo)
+        
+    return redirect(url_for("listar",folder = pasta))
 
 
 if __name__=='__main__':    

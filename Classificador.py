@@ -150,11 +150,6 @@ def main():
 
     person1 = users[5]
     print(best_match(users, person1))
-
-    dupree = userDict(movie="You, Me and Dupree")
-    snakes = userDict(movie="Snakes on a Plane")
-    la_salle = userDict(user="Mick LaSalle")
-    seymour = userDict(user="Gene Seymour")
     
     person_recommend = recommend(dataset, users, movies, "Toby")
     perc_rec = movies_recommend(person_recommend, movies)
